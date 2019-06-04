@@ -469,14 +469,14 @@ def maxpool(op, context):
   _pool(op, context, 'MAX')
 
 def inner_product(op, context):
-  x_name = compat.as_str_any(op.inputs[0].name)
-  W_name = compat.as_str_any(op.inputs[1].name)
+  W_name = compat.as_str_any(op.inputs[0].name)
+  x_name = compat.as_str_any(op.inputs[1].name)
   output_name = compat.as_str_any(op.outputs[0].name)
 
   if W_name in context.consts:
     W = context.consts[W_name]
   else:
-    identity_op = op.inputs[1].op
+    identity_op = op.inputs[0].op
     assert identity_op.type == 'Identity', (
         'Weight input has to be an identity op')
     W_name = compat.as_str_any(identity_op.inputs[0].name)
